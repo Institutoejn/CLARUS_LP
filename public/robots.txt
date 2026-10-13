@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /app/
+Disallow: /conta/
+Disallow: /configuracoes/
+Disallow: /onboarding/
+
+# Nota técnica de SEO:
+# As rotas /login, /register e /forgot-password NÃO estão bloqueadas no robots.txt
+# para permitir que os rastreadores leiam a diretiva <meta name="robots" content="noindex, nofollow">
+# e o cabeçalho HTTP X-Robots-Tag: noindex, nofollow.
+
+Sitemap: https://clarus.finance/sitemap.xml
+Host: https://clarus.finance

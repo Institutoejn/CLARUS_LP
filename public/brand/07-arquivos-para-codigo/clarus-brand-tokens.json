@@ -1,0 +1,32 @@
+{
+  "brand": "Clarus Finance",
+  "version": "4.0",
+  "wordmark": "clarus.",
+  "glyph": "Fita (l ascendente em laço contínuo)",
+  "colors": {
+    "violet": "#7E3BED",
+    "violetDeep": "#2A1458",
+    "violetSoft": "#A982FF",
+    "lime": "#D7F744",
+    "ink": "#14121C",
+    "paper": "#F4F3FA",
+    "white": "#FFFFFF",
+    "muted": "#ECEAF3",
+    "mutedForeground": "#625D70",
+    "border": "#DEDCE8",
+    "destructive": "#C94343"
+  },
+  "typography": {
+    "display": "Bricolage Grotesque",
+    "sans": "Geist",
+    "mono": "Geist Mono",
+    "numericVariant": "tabular-nums"
+  },
+  "radii": {
+    "sm": "8px",
+    "md": "12px",
+    "lg": "16px",
+    "xl": "24px"
+  },
+  "spacingBase": "4px"
+}

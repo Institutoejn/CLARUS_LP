@@ -1,0 +1,41 @@
+:root {
+  /* Paleta Oficial — Clarus Finance Brand Kit v4.0 */
+  --clarus-violet: #7E3BED;
+  --clarus-violet-deep: #2A1458;
+  --clarus-violet-soft: #A982FF;
+  --clarus-lime: #D7F744;
+  --clarus-ink: #14121C;
+  --clarus-paper: #F4F3FA;
+  --clarus-white: #FFFFFF;
+
+  /* Superfícies e Semântica de Interface */
+  --clarus-muted: #ECEAF3;
+  --clarus-muted-foreground: #625D70;
+  --clarus-border: #DEDCE8;
+  --clarus-destructive: #C94343;
+
+  /* Tipografia Oficial */
+  --font-display: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Raios Principais (Brand Kit v4.0) */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Escala de Espaçamento Baseada em 4px */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+}

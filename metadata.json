@@ -1,0 +1,6 @@
+{
+  "name": "Clarus Finance — Organização Financeira Pessoal com Clareza",
+  "description": "Organize sua vida financeira com clareza, simplicidade e leveza. Registre movimentações com captura rápida, acompanhe categorias e metas na Clarus Finance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
