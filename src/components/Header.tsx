@@ -128,14 +128,14 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
         {/* Zona 3: Conversão secundária (Entrar) e primária (Criar minha conta) */}
         <div className="hidden md:flex md:items-center md:gap-3 md:shrink-0">
           <a
-            href="/login"
+            href="https://app.clarusfinancas.com.br/login"
             onClick={(e) => handleLinkClick(e, '/login')}
             className="inline-flex min-h-[44px] shrink-0 items-center justify-center whitespace-nowrap rounded-xl px-4 py-2 text-sm font-medium text-[#14121C] transition-colors duration-150 hover:bg-[#ECEAF3] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7E3BED]"
           >
             Entrar
           </a>
           <a
-            href="/register"
+            href="https://app.clarusfinancas.com.br/login"
             onClick={(e) => handleLinkClick(e, '/register')}
             className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-[#2A1458] px-5 py-2.5 text-sm font-medium text-white transition-colors duration-150 hover:bg-[#7E3BED] active:bg-[#14121C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7E3BED]"
           >
@@ -191,14 +191,14 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
 
           <div className="mt-6 flex flex-col gap-3 border-t border-[#DEDCE8] pt-6">
             <a
-              href="/login"
+              href="https://app.clarusfinancas.com.br/login"
               onClick={(e) => handleLinkClick(e, '/login')}
               className="flex min-h-[48px] w-full items-center justify-center rounded-xl border border-[#DEDCE8] bg-white px-5 py-3 text-sm font-medium text-[#14121C] transition-colors hover:bg-[#ECEAF3] focus-visible:outline-2 focus-visible:outline-[#7E3BED]"
             >
               Já tenho conta — Entrar
             </a>
             <a
-              href="/register"
+              href="https://app.clarusfinancas.com.br/login"
               onClick={(e) => handleLinkClick(e, '/register')}
               className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-[#2A1458] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#7E3BED] focus-visible:outline-2 focus-visible:outline-[#7E3BED]"
             >

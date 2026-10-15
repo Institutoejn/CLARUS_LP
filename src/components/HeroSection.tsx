@@ -29,19 +29,63 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
       aria-labelledby="hero-heading"
       className="relative overflow-hidden bg-[#F4F3FA] pt-6 pb-16 sm:pt-10 sm:pb-24 lg:pt-12 lg:pb-28"
     >
-      {/* Grafismo sutil de linha fluida inspirado no movimento da letra l Fita (decorativo) */}
+      {/* Estruturação arquitetônica renovada da Fita "l" (elemento de fundo em laço contínuo e ecos paralelos) */}
       <svg
         aria-hidden="true"
-        viewBox="0 0 1440 420"
+        viewBox="0 0 1440 480"
         fill="none"
-        className="pointer-events-none absolute -top-12 right-0 -z-10 h-[420px] w-full opacity-45"
+        className="pointer-events-none absolute -top-10 right-0 -z-10 h-[480px] w-full select-none"
       >
+        <defs>
+          {/* Gradiente de opacidade sobre a cor oficial #DEDCE8, mantendo a tonalidade exata sem introduzir novas cores */}
+          <linearGradient id="fita-stroke-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#DEDCE8" stopOpacity="0.15" />
+            <stop offset="45%" stopColor="#DEDCE8" stopOpacity="0.65" />
+            <stop offset="80%" stopColor="#DEDCE8" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#DEDCE8" stopOpacity="0.05" />
+          </linearGradient>
+          <linearGradient id="fita-accent-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#DEDCE8" stopOpacity="0.08" />
+            <stop offset="50%" stopColor="#DEDCE8" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#DEDCE8" stopOpacity="0.1" />
+          </linearGradient>
+        </defs>
+
+        {/* Linhas guias horizontais sutis de ancoragem do grid */}
+        <line x1="750" y1="120" x2="1440" y2="120" stroke="#DEDCE8" strokeWidth="1" strokeDasharray="4 8" opacity="0.35" />
+        <line x1="750" y1="280" x2="1440" y2="280" stroke="#DEDCE8" strokeWidth="1" strokeDasharray="4 8" opacity="0.25" />
+
+        {/* Múltipla fita em laço contínuo ascendente ("L" Fita com profundidade e ritmo) */}
+        {/* Curva 1: Traço principal do laço ascendente da letra L */}
         <path
-          d="M820 380 C960 360 980 120 1120 60 C1220 18 1310 68 1260 155 C1210 242 1095 290 1140 345 C1180 392 1290 405 1410 355"
-          stroke="#DEDCE8"
-          strokeWidth="2"
+          d="M 780 430 C 920 420 1010 260 1060 110 C 1090 20 1165 15 1205 75 C 1245 140 1195 240 1130 285 C 1065 330 1020 375 1060 425 C 1095 470 1200 460 1340 390 C 1390 365 1430 335 1440 325"
+          stroke="url(#fita-stroke-gradient)"
+          strokeWidth="2.5"
           strokeLinecap="round"
         />
+
+        {/* Curva 2: Eco paralelo interno de profundidade (segunda perna do laço "L") */}
+        <path
+          d="M 795 442 C 935 432 1025 272 1075 122 C 1102 38 1172 32 1212 90 C 1250 152 1202 248 1140 292 C 1078 335 1035 382 1072 432 C 1108 475 1210 465 1350 398"
+          stroke="url(#fita-accent-gradient)"
+          strokeWidth="1.5"
+          strokeDasharray="6 4"
+          strokeLinecap="round"
+        />
+
+        {/* Curva 3: Terceiro laço sutil estendido na base, trazendo fluidez adicional */}
+        <path
+          d="M 850 390 C 970 380 1045 290 1085 180 C 1115 95 1160 55 1190 95 C 1220 140 1180 215 1125 255 C 1070 295 1040 345 1075 390 C 1110 430 1220 420 1380 340"
+          stroke="#DEDCE8"
+          strokeWidth="1"
+          strokeOpacity="0.25"
+          strokeLinecap="round"
+        />
+
+        {/* Pontos de clareza e convergência visual ao longo da Fita */}
+        <circle cx="1205" cy="75" r="4" fill="#DEDCE8" fillOpacity="0.5" />
+        <circle cx="1130" cy="285" r="3" fill="#DEDCE8" fillOpacity="0.4" />
+        <circle cx="1060" cy="425" r="3.5" fill="#DEDCE8" fillOpacity="0.45" />
       </svg>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -69,8 +113,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
             {/* Ações de conversão primária e secundária */}
             <div className="mt-8 flex flex-col gap-3.5 sm:flex-row sm:items-center">
               <a
-                href={HERO_CONTENT.primaryCta.href}
-                onClick={(e) => handleCtaClick(e, HERO_CONTENT.primaryCta.href)}
+                href="https://app.clarusfinancas.com.br/login"
+                onClick={(e) => handleCtaClick(e, '/register')}
                 className="inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2.5 whitespace-nowrap rounded-xl bg-[#2A1458] px-6 py-3.5 text-base font-medium text-white transition-colors duration-150 hover:bg-[#7E3BED] active:bg-[#14121C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7E3BED]"
               >
                 <span>{HERO_CONTENT.primaryCta.label}</span>
@@ -90,8 +134,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
             <div className="mt-5 flex flex-wrap items-center gap-2 text-sm text-[#625D70]">
               <span>{HERO_CONTENT.loginPrompt.text}</span>
               <a
-                href={HERO_CONTENT.loginPrompt.href}
-                onClick={(e) => handleCtaClick(e, HERO_CONTENT.loginPrompt.href)}
+                href="https://app.clarusfinancas.com.br/login"
+                onClick={(e) => handleCtaClick(e, '/login')}
                 className="inline-flex min-h-[36px] items-center font-medium text-[#2A1458] underline decoration-[#7E3BED] underline-offset-4 transition-colors hover:text-[#7E3BED]"
               >
                 {HERO_CONTENT.loginPrompt.label}

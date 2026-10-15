@@ -88,7 +88,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookiePreferen
             <ul className="mt-4 flex flex-col gap-2.5 text-sm">
               <li>
                 <a
-                  href="/register"
+                  href="https://app.clarusfinancas.com.br/login"
                   onClick={(e) => handleInternalLink(e, '/register')}
                   className="inline-flex min-h-[36px] items-center text-white/80 transition-colors hover:text-[#D7F744]"
                 >
@@ -97,7 +97,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookiePreferen
               </li>
               <li>
                 <a
-                  href="/login"
+                  href="https://app.clarusfinancas.com.br/login"
                   onClick={(e) => handleInternalLink(e, '/login')}
                   className="inline-flex min-h-[36px] items-center text-white/80 transition-colors hover:text-[#D7F744]"
                 >
@@ -106,7 +106,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCookiePreferen
               </li>
               <li>
                 <a
-                  href="/forgot-password"
+                  href="https://app.clarusfinancas.com.br/login"
                   onClick={(e) => handleInternalLink(e, '/forgot-password')}
                   className="inline-flex min-h-[36px] items-center text-white/80 transition-colors hover:text-[#D7F744]"
                 >

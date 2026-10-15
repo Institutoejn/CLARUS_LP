@@ -25,6 +25,14 @@ async function startServer() {
   const app = express();
   app.disable('x-powered-by');
 
+  // Cache-Control otimizado para ativos estáticos, imagens e fontes
+  app.use((req, res, next) => {
+    if (/\.(png|jpg|jpeg|svg|ico|webp|ttf|woff|woff2)$/i.test(req.path)) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    }
+    next();
+  });
+
   // Cabeçalhos de segurança e privacidade (Seção 11)
   app.use((req, res, next) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -41,10 +49,10 @@ async function startServer() {
         "style-src 'self' 'unsafe-inline'",
         "img-src 'self' data: https:",
         "font-src 'self' data:",
-        "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com",
+        "connect-src 'self' https://app.clarusfinancas.com.br https://www.google-analytics.com https://region1.google-analytics.com",
         "frame-ancestors *",
         "base-uri 'self'",
-        "form-action 'self'",
+        "form-action 'self' https://app.clarusfinancas.com.br",
       ].join('; ')
     );
     next();

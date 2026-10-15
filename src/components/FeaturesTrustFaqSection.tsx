@@ -322,7 +322,7 @@ export const FeaturesTrustFaqSection: React.FC<FeaturesTrustFaqSectionProps> = (
 
               <div className="mt-8 flex w-full flex-col justify-center gap-3.5 sm:w-auto sm:flex-row sm:items-center">
                 <a
-                  href="/register"
+                  href="https://app.clarusfinancas.com.br/login"
                   onClick={(e) => handleLinkClick(e, '/register')}
                   className="inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2.5 whitespace-nowrap rounded-xl bg-[#D7F744] px-7 py-3.5 text-base font-semibold text-[#14121C] transition-colors duration-150 hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D7F744]"
                 >
@@ -331,7 +331,7 @@ export const FeaturesTrustFaqSection: React.FC<FeaturesTrustFaqSectionProps> = (
                 </a>
 
                 <a
-                  href="/login"
+                  href="https://app.clarusfinancas.com.br/login"
                   onClick={(e) => handleLinkClick(e, '/login')}
                   className="inline-flex min-h-[48px] shrink-0 items-center justify-center whitespace-nowrap rounded-xl border border-white/25 bg-white/10 px-7 py-3.5 text-base font-medium text-white backdrop-blur-xs transition-colors duration-150 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >

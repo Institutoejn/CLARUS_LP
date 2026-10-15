@@ -151,7 +151,7 @@ export const ValueAndStepsSection: React.FC<ValueAndStepsSectionProps> = ({ onNa
               Quer sentir como essa rotina funciona na prática? Crie sua conta em menos de um minuto.
             </p>
             <a
-              href="/register"
+              href="https://app.clarusfinancas.com.br/login"
               onClick={(e) => {
                 e.preventDefault();
                 onNavigate('/register');
