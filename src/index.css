@@ -88,14 +88,13 @@ body {
 .motion-intro, .motion-loading {
   position: sticky;
   top: 0;
-  height: 100svh;
-  min-height: 360px;
+  height: 100dvh;
   flex: none;
   background: #14121c;
   color: white;
 }
 .motion-intro { isolation: isolate; overflow: hidden; }
-.motion-stage { position: absolute; inset: 0 0 100px; display: flex; align-items: center; }
+.motion-stage { position: absolute; inset: 0; }
 .motion-actions {
   position: absolute; bottom: max(20px, env(safe-area-inset-bottom)); left: 24px; right: 24px;
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
@@ -117,17 +116,15 @@ body {
 }
 .landing-content > header { border-radius: 32px 32px 0 0; }
 @keyframes motion-scroll { 0%, 100% { transform: translateY(-3px); } 50% { transform: translateY(4px); } }
-.motion-portrait .motion-scene > div:first-child { width: 800px !important; }
-.motion-portrait .motion-scene > div:nth-child(3) { inset: 54px 56px auto !important; }
-.motion-portrait .motion-scene > div:nth-child(3) > span { display: none; }
-.motion-portrait .motion-scene > div:last-child { display: none !important; }
+.motion-portrait .motion-brand-row { inset: 54px 56px auto !important; }
+.motion-portrait .motion-brand-row > span { display: none; }
+.motion-portrait .motion-footer { display: none !important; }
 .motion-portrait .motion-narrative { left: 56px !important; right: 56px !important; top: 200px !important; width: auto !important; }
 .motion-portrait .motion-narrative div[style*="font-size: 126"],
 .motion-portrait .motion-narrative div[style*="font-size: 112"] { font-size: 78px !important; letter-spacing: -4px !important; }
 .motion-portrait .motion-narrative p { font-size: 28px !important; }
 .motion-portrait .motion-card { left: 56px !important; top: 650px !important; width: 608px !important; rotate: 0deg !important; }
 .motion-portrait .motion-orbit { left: 195px !important; right: auto !important; top: 710px !important; }
-.motion-portrait .motion-stage { bottom: 125px; }
 @media (max-width: 600px) {
   .motion-actions { left: 12px; right: 12px; gap: 8px; flex-wrap: wrap; font-size: 11px; }
   .motion-actions a { order: -1; width: 100%; padding: 0; gap: 3px; }

@@ -128,7 +128,7 @@ A home começa com a composição Remotion de 30 segundos fornecida em `Clarus-M
 - O motion permanece fixo enquanto a hero e o restante do site sobem por cima, com rolagem nativa e sem bloquear mouse, toque ou teclado.
 - Ao terminar, avança até a hero somente se não houve interação, a página está visível e a pessoa continua no topo. Rolagem manual, foco por teclado e uso dos controles cancelam esse avanço.
 - Fora da abertura ou com a aba oculta, pausa a reprodução. Voltar ao topo permite retomá-la pelo controle.
-- Celular/tablet em formato retrato usam composição vertical de 720×1280 com as mesmas cenas reorganizadas; desktop usa 1920×1080.
+- A composição acompanha a proporção real da tela e ocupa toda a altura e largura disponíveis, inclusive ao girar o aparelho ou mudar o tamanho da janela. O fundo animado cobre a tela inteira; textos e cartões se ajustam a uma área segura acima dos controles, sem barras ou cortes. As cenas usam referências de layout vertical (720×1280) e horizontal (1920×1080).
 - `prefers-reduced-motion` inicia em um quadro estático, sem avanço automático ou efeito fixo. A reprodução pode ser iniciada pelo visitante.
 - `VITE_ENABLE_MOTION_INTRO=false` desativa a abertura no build/dev e retorna à home direta. Por padrão está habilitada. Nenhuma outra rota recebe a introdução.
 

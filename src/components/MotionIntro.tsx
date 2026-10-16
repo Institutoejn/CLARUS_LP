@@ -7,8 +7,14 @@ export default function MotionIntro() {
   const player = useRef<PlayerRef>(null);
   const section = useRef<HTMLElement>(null);
   const interacted = useRef(false);
+  const actions = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
-  const [portrait, setPortrait] = useState(() => matchMedia('(max-aspect-ratio: 4/5)').matches);
+  const [viewport, setViewport] = useState(() => ({
+    width: window.innerWidth, height: window.innerHeight, controlsHeight: 140,
+  }));
+  const portrait = viewport.width < viewport.height;
+  const compositionWidth = portrait ? 720 : 1920;
+  const compositionHeight = Math.max(1, Math.round(compositionWidth * viewport.height / viewport.width));
   const [reduced, setReduced] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
   const [failed, setFailed] = useState(false);
 
@@ -21,13 +27,26 @@ export default function MotionIntro() {
   };
 
   useEffect(() => {
-    const orientation = matchMedia('(max-aspect-ratio: 4/5)');
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
-    const resize = () => setPortrait(orientation.matches);
     const preference = () => { setReduced(motion.matches); if (motion.matches) player.current?.pause(); };
-    orientation.addEventListener('change', resize);
     motion.addEventListener('change', preference);
-    return () => { orientation.removeEventListener('change', resize); motion.removeEventListener('change', preference); };
+    return () => motion.removeEventListener('change', preference);
+  }, []);
+
+  useEffect(() => {
+    const measure = () => {
+      const bounds = section.current?.getBoundingClientRect();
+      const controls = actions.current;
+      if (!bounds?.width || !bounds.height || !controls) return;
+      const controlsHeight = Math.ceil(controls.getBoundingClientRect().height + parseFloat(getComputedStyle(controls).bottom) + 16);
+      setViewport((previous) => previous.width === bounds.width && previous.height === bounds.height && previous.controlsHeight === controlsHeight
+        ? previous : { width: bounds.width, height: bounds.height, controlsHeight });
+    };
+    const observer = new ResizeObserver(measure);
+    if (section.current) observer.observe(section.current);
+    if (actions.current) observer.observe(actions.current);
+    measure();
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -87,7 +106,8 @@ export default function MotionIntro() {
       <div className="motion-stage">
         {failed ? <p className="motion-fallback">Seu dinheiro, finalmente claro.</p> : (
           <Player ref={player} component={Movie} durationInFrames={900} fps={30}
-            compositionWidth={portrait ? 720 : 1920} compositionHeight={portrait ? 1280 : 1080}
+            compositionWidth={compositionWidth} compositionHeight={compositionHeight}
+            inputProps={{ portrait, bottomInset: viewport.controlsHeight * compositionWidth / viewport.width }}
             autoPlay={!reduced} loop={false} controls={false} clickToPlay={false} doubleClickToFullscreen={false}
             spaceKeyToPlayOrPause={false} initiallyMuted numberOfSharedAudioTags={0}
             errorFallback={() => <p className="motion-fallback">Seu dinheiro, finalmente claro.</p>}
@@ -95,7 +115,7 @@ export default function MotionIntro() {
           />
         )}
       </div>
-      <div className="motion-actions">
+      <div ref={actions} className="motion-actions">
         {!failed && <button type="button" onClick={() => {
           interacted.current = true;
           if (playing) player.current?.pause();
