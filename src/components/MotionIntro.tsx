@@ -101,8 +101,18 @@ export default function MotionIntro() {
     return () => { p.removeEventListener('error', error); p.removeEventListener('play', play); p.removeEventListener('pause', pause); p.removeEventListener('ended', end); };
   }, [reduced, portrait, failed]);
 
+  const pauseForPlatformLink = (target: EventTarget) => {
+    if (target instanceof Element && target.closest('[data-platform-link]')) {
+      interacted.current = true;
+      player.current?.pause();
+    }
+  };
+
   return (
-    <section ref={section} className={`motion-intro ${portrait ? 'motion-portrait' : ''}`} aria-label="Conheça a Clarus em 30 segundos">
+    <section ref={section} className={`motion-intro ${portrait ? 'motion-portrait' : ''}`} aria-label="Conheça a Clarus em 30 segundos"
+      onClickCapture={(event) => pauseForPlatformLink(event.target)}
+      onFocusCapture={(event) => pauseForPlatformLink(event.target)}
+    >
       <div className="motion-stage">
         {failed ? <p className="motion-fallback">Seu dinheiro, finalmente claro.</p> : (
           <Player ref={player} component={Movie} durationInFrames={900} fps={30}

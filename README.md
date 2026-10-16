@@ -123,6 +123,7 @@ Seguindo a diretriz de não inventar dados comerciais, societários ou jurídico
 A home começa com a composição Remotion de 30 segundos fornecida em `Clarus-Motion-Remotion.zip`, integrada como React em `src/motion/`. Não exige exportação de MP4. O player e as cenas são carregados separadamente da LP; a marca reutiliza o SVG local.
 
 - Reprodução automática, sem áudio e sem loop; pausa e link para pular sempre disponíveis na abertura.
+- A seta circular da abertura e o “Conheça a Clarus” do encerramento são links para a plataforma oficial. Eles funcionam por toque, mouse e teclado; focar ou clicar pausa o motion para preservar o acesso. Cenas pré-carregadas não expõem links invisíveis ao teclado.
 - Os ícones das cenas são SVGs Lucide centralizados em `src/motion/MotionIcon.tsx`, evitando substituição por emojis do sistema em celulares.
 - O menu mobile usa um diálogo modal na camada superior do navegador, independente do desfoque do cabeçalho. Ele ocupa a tela, permite rolagem interna em telas pequenas e restaura a posição da página ao fechar.
 - O motion permanece fixo enquanto a hero e o restante do site sobem por cima, com rolagem nativa e sem bloquear mouse, toque ou teclado.

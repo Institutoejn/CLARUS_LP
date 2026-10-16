@@ -164,3 +164,6 @@ body {
   color: var(--clarus-ink);
 }
 .mobile-navigation-dialog::backdrop { background: var(--clarus-paper); }
+
+.motion-platform-link { text-decoration: none; cursor: pointer; }
+.motion-platform-link:focus-visible { outline: 4px solid #d7f744; outline-offset: 8px; }

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { BRAND_TOKENS } from '../config/tokens';
+import { OFFICIAL_PLATFORM_URL } from '../config/platform';
+export { OFFICIAL_PLATFORM_URL } from '../config/platform';
 
 interface RedirectLoadingOverlayProps {
   isOpen: boolean;
   targetUrl?: string;
   onRedirectStart?: () => void;
 }
-
-export const OFFICIAL_PLATFORM_URL = 'https://app.clarusfinancas.com.br/login';
 
 // Pre-carregamento imediato na memória do navegador (0ms latência visual)
 if (typeof window !== 'undefined') {
