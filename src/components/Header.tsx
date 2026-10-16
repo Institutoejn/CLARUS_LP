@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ArrowRight, Menu, X } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 
@@ -18,10 +18,11 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const firstMenuLinkRef = useRef<HTMLAnchorElement>(null);
-  const mobileDialogRef = useRef<HTMLDivElement>(null);
+  const mobileDialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
+      if (document.body.style.position === 'fixed') return;
       setIsScrolled(window.scrollY > 18);
     };
     onScroll();
@@ -29,55 +30,62 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Gerenciamento de foco, tecla Escape e bloqueio de rolagem do fundo no mobile
-  useEffect(() => {
-    if (!mobileMenuOpen) {
-      document.body.style.overflow = '';
-      return;
-    }
-
-    document.body.style.overflow = 'hidden';
-    const focusTimer = window.setTimeout(() => {
-      firstMenuLinkRef.current?.focus();
-    }, 30);
+  // A native modal lives above the sticky header's backdrop-filter containing block.
+  // Lock the document only while it is open, then restore the exact scroll position.
+  useLayoutEffect(() => {
+    if (!mobileMenuOpen) return;
+    const dialog = mobileDialogRef.current;
+    if (!dialog) return;
+    const scrollY = window.scrollY;
+    const body = document.body;
+    const previous = {
+      overflow: body.style.overflow,
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
+    };
+    body.style.overflow = 'hidden';
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.width = '100%';
+    dialog.showModal();
+    firstMenuLinkRef.current?.focus({ preventScroll: true });
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key !== 'Tab') return;
+      const focusable = dialog.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled])'
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
         event.preventDefault();
-        setMobileMenuOpen(false);
-        menuButtonRef.current?.focus();
-        return;
-      }
-
-      if (event.key === 'Tab' && mobileDialogRef.current) {
-        const focusable = mobileDialogRef.current.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled])'
-        );
-        if (focusable.length === 0) return;
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-
-        if (event.shiftKey && document.activeElement === first) {
-          event.preventDefault();
-          last.focus();
-        } else if (!event.shiftKey && document.activeElement === last) {
-          event.preventDefault();
-          first.focus();
-        }
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
       }
     };
-
-    window.addEventListener('keydown', handleKeyDown);
+    const desktop = window.matchMedia('(min-width: 768px)');
+    const closeOnDesktop = () => { if (desktop.matches) setMobileMenuOpen(false); };
+    desktop.addEventListener('change', closeOnDesktop);
+    dialog.addEventListener('keydown', handleKeyDown);
     return () => {
-      window.clearTimeout(focusTimer);
-      window.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
+      desktop.removeEventListener('change', closeOnDesktop);
+      dialog.removeEventListener('keydown', handleKeyDown);
+      dialog.close();
+      Object.assign(body.style, previous);
+      window.scrollTo({ top: scrollY, behavior: 'instant' });
+      menuButtonRef.current?.focus({ preventScroll: true });
     };
   }, [mobileMenuOpen]);
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
+      e.preventDefault();
       setMobileMenuOpen(false);
+      // Let the modal cleanup restore scrolling before navigating to the section.
+      window.requestAnimationFrame(() => onNavigate(href));
       return;
     }
     e.preventDefault();
@@ -166,47 +174,61 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
 
       {/* Menu Mobile Acessível com bloqueio de fundo e foco gerenciado */}
       {mobileMenuOpen && (
-        <div
+        <dialog
           ref={mobileDialogRef}
           id="menu-navegacao-mobile"
           role="dialog"
           aria-modal="true"
           aria-label="Menu de navegação móvel"
-          className="fixed inset-x-0 top-16 bottom-0 z-50 flex flex-col justify-between overflow-y-auto border-t border-[#DEDCE8] bg-[#F4F3FA] px-5 py-6 md:hidden"
+          onCancel={(event) => { event.preventDefault(); setMobileMenuOpen(false); }}
+          className="mobile-navigation-dialog"
         >
-          <nav aria-label="Links da página" className="flex flex-col gap-2">
-            {NAV_ITEMS.map((item, idx) => (
-              <a
-                key={item.href}
-                ref={idx === 0 ? firstMenuLinkRef : undefined}
-                href={item.href}
-                onClick={(e) => handleLinkClick(e, item.href)}
-                className="flex min-h-[48px] items-center justify-between rounded-xl border border-transparent px-4 py-3 text-base font-medium text-[#14121C] transition-colors hover:border-[#DEDCE8] hover:bg-white focus-visible:outline-2 focus-visible:outline-[#7E3BED]"
-              >
-                <span>{item.label}</span>
-                <ArrowRight className="size-4 text-[#625D70]" aria-hidden="true" />
-              </a>
-            ))}
-          </nav>
-
-          <div className="mt-6 flex flex-col gap-3 border-t border-[#DEDCE8] pt-6">
-            <a
-              href="https://app.clarusfinancas.com.br/login"
-              onClick={(e) => handleLinkClick(e, '/login')}
-              className="flex min-h-[48px] w-full items-center justify-center rounded-xl border border-[#DEDCE8] bg-white px-5 py-3 text-sm font-medium text-[#14121C] transition-colors hover:bg-[#ECEAF3] focus-visible:outline-2 focus-visible:outline-[#7E3BED]"
+          <div className="flex h-16 shrink-0 items-center justify-between border-b border-[#DEDCE8] px-5">
+            <BrandLogo surface="light" size="md" href="/" onNavigate={(href) => { setMobileMenuOpen(false); window.requestAnimationFrame(() => onNavigate(href)); }} />
+            <button
+              type="button"
+              aria-label="Fechar menu de navegação"
+              onClick={() => setMobileMenuOpen(false)}
+              className="inline-flex size-11 items-center justify-center rounded-xl border border-[#DEDCE8] bg-white text-[#14121C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7E3BED]"
             >
-              Já tenho conta — Entrar
-            </a>
-            <a
-              href="https://app.clarusfinancas.com.br/login"
-              onClick={(e) => handleLinkClick(e, '/register')}
-              className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-[#2A1458] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#7E3BED] focus-visible:outline-2 focus-visible:outline-[#7E3BED]"
-            >
-              <span>Criar minha conta</span>
-              <ArrowRight className="size-4 text-[#D7F744]" aria-hidden="true" />
-            </a>
+              <X className="size-5" aria-hidden="true" />
+            </button>
           </div>
-        </div>
+          <div className="flex min-h-0 flex-1 flex-col justify-between gap-6 overflow-y-auto overscroll-contain px-5 py-6">
+            <nav aria-label="Links da página" className="flex flex-col gap-2">
+              {NAV_ITEMS.map((item, idx) => (
+                <a
+                  key={item.href}
+                  ref={idx === 0 ? firstMenuLinkRef : undefined}
+                  href={item.href}
+                  onClick={(e) => handleLinkClick(e, item.href)}
+                  className="flex min-h-[48px] items-center justify-between rounded-xl border border-transparent px-4 py-3 text-base font-medium text-[#14121C] transition-colors hover:border-[#DEDCE8] hover:bg-white focus-visible:outline-2 focus-visible:outline-[#7E3BED]"
+                >
+                  <span>{item.label}</span>
+                  <ArrowRight className="size-4 text-[#625D70]" aria-hidden="true" />
+                </a>
+              ))}
+            </nav>
+
+            <div className="mt-6 flex flex-col gap-3 border-t border-[#DEDCE8] pt-6">
+              <a
+                href="https://app.clarusfinancas.com.br/login"
+                onClick={(e) => handleLinkClick(e, '/login')}
+                className="flex min-h-[48px] w-full items-center justify-center rounded-xl border border-[#DEDCE8] bg-white px-5 py-3 text-sm font-medium text-[#14121C] transition-colors hover:bg-[#ECEAF3] focus-visible:outline-2 focus-visible:outline-[#7E3BED]"
+              >
+                Já tenho conta — Entrar
+              </a>
+              <a
+                href="https://app.clarusfinancas.com.br/login"
+                onClick={(e) => handleLinkClick(e, '/register')}
+                className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-[#2A1458] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#7E3BED] focus-visible:outline-2 focus-visible:outline-[#7E3BED]"
+              >
+                <span>Criar minha conta</span>
+                <ArrowRight className="size-4 text-[#D7F744]" aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+        </dialog>
       )}
     </header>
   );
