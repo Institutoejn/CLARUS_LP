@@ -59,7 +59,7 @@ export const FeaturesTrustFaqSection: React.FC<FeaturesTrustFaqSectionProps> = (
         className="scroll-mt-20 border-t border-[#DEDCE8] bg-[#F4F3FA] py-16 sm:py-24"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl">
+          <div data-reveal="up" className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2A1458]">
               {FEATURES_CONTENT.eyebrow}
             </p>
@@ -81,6 +81,8 @@ export const FeaturesTrustFaqSection: React.FC<FeaturesTrustFaqSectionProps> = (
               return (
                 <article
                   key={item.id}
+                  data-reveal={idx % 2 === 0 ? 'left' : 'right'}
+                  style={{ transitionDelay: `${(idx % 3) * 70}ms` }}
                   className={`flex flex-col justify-between rounded-[24px] p-6 sm:p-8 ${
                     isWide ? 'md:col-span-2' : 'md:col-span-1'
                   } ${
@@ -140,7 +142,7 @@ export const FeaturesTrustFaqSection: React.FC<FeaturesTrustFaqSectionProps> = (
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:items-start">
-            <div>
+            <div data-reveal="left">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7E3BED]">
                 {TRUST_CONTENT.eyebrow}
               </p>
@@ -177,9 +179,11 @@ export const FeaturesTrustFaqSection: React.FC<FeaturesTrustFaqSectionProps> = (
             </div>
 
             <div className="grid gap-4">
-              {TRUST_CONTENT.principles.map((principle) => (
+              {TRUST_CONTENT.principles.map((principle, index) => (
                 <article
                   key={principle.title}
+                  data-reveal="right"
+                  style={{ transitionDelay: `${index * 70}ms` }}
                   className="rounded-2xl border border-[#DEDCE8] bg-[#F4F3FA] p-6"
                 >
                   <div className="flex items-start gap-3.5">
@@ -214,7 +218,7 @@ export const FeaturesTrustFaqSection: React.FC<FeaturesTrustFaqSectionProps> = (
         className="scroll-mt-20 border-t border-[#DEDCE8] bg-[#F4F3FA] py-16 sm:py-24"
       >
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
+          <div data-reveal="up" className="text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2A1458]">
               PERGUNTAS E RESPOSTAS
             </p>
@@ -237,7 +241,7 @@ export const FeaturesTrustFaqSection: React.FC<FeaturesTrustFaqSectionProps> = (
               const panelId = `${item.id}-panel`;
 
               return (
-                <div key={item.id} className="p-2 sm:p-3">
+                <div key={item.id} data-reveal="up" className="p-2 sm:p-3">
                   <h3>
                     <button
                       ref={(el) => {
@@ -283,7 +287,7 @@ export const FeaturesTrustFaqSection: React.FC<FeaturesTrustFaqSectionProps> = (
         className="border-t border-[#DEDCE8] bg-white py-16 sm:py-24"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="relative isolate overflow-hidden rounded-[24px] bg-[#14121C] px-6 py-14 text-white sm:px-12 sm:py-20 lg:px-16">
+          <div data-reveal="up" className="relative isolate overflow-hidden rounded-[24px] bg-[#14121C] px-6 py-14 text-white sm:px-12 sm:py-20 lg:px-16">
             {/* Atmosfera oficial Clarus */}
             <div
               aria-hidden="true"

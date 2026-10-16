@@ -18,7 +18,7 @@ export const ValueAndStepsSection: React.FC<ValueAndStepsSectionProps> = ({ onNa
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Problema vs. Clareza */}
           <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
-            <div>
+            <div data-reveal="left">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7E3BED]">
                 {VALUE_PROPOSITION_CONTENT.eyebrow}
               </p>
@@ -30,7 +30,7 @@ export const ValueAndStepsSection: React.FC<ValueAndStepsSectionProps> = ({ onNa
               </h2>
             </div>
 
-            <div className="flex flex-col gap-4 text-base leading-relaxed text-[#625D70]">
+            <div data-reveal="right" className="flex flex-col gap-4 text-base leading-relaxed text-[#625D70]">
               <p>{VALUE_PROPOSITION_CONTENT.problemStatement}</p>
               <p className="font-medium text-[#14121C]">
                 {VALUE_PROPOSITION_CONTENT.solutionStatement}
@@ -46,6 +46,8 @@ export const ValueAndStepsSection: React.FC<ValueAndStepsSectionProps> = ({ onNa
               return (
                 <article
                   key={pillar.index}
+                  data-reveal={index % 2 === 0 ? 'left' : 'right'}
+                  style={{ transitionDelay: `${index * 70}ms` }}
                   className="flex flex-col justify-between rounded-[24px] border border-[#DEDCE8] bg-[#F4F3FA] p-6 sm:p-8"
                 >
                   <div>
@@ -84,7 +86,7 @@ export const ValueAndStepsSection: React.FC<ValueAndStepsSectionProps> = ({ onNa
         className="relative scroll-mt-20 border-t border-[#DEDCE8] bg-[#F4F3FA] py-16 sm:py-24"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl">
+          <div data-reveal="up" className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2A1458]">
               {HOW_IT_WORKS_CONTENT.eyebrow}
             </p>
@@ -108,9 +110,11 @@ export const ValueAndStepsSection: React.FC<ValueAndStepsSectionProps> = ({ onNa
             />
 
             <ol className="grid gap-6 lg:grid-cols-3 lg:gap-8">
-              {HOW_IT_WORKS_CONTENT.steps.map((step) => (
+              {HOW_IT_WORKS_CONTENT.steps.map((step, index) => (
                 <li
                   key={step.stepNumber}
+                  data-reveal={index % 2 === 0 ? 'left' : 'right'}
+                  style={{ transitionDelay: `${index * 70}ms` }}
                   className="relative flex flex-col justify-between rounded-[24px] border border-[#DEDCE8] bg-white p-6 sm:p-8"
                 >
                   <div>
@@ -146,7 +150,7 @@ export const ValueAndStepsSection: React.FC<ValueAndStepsSectionProps> = ({ onNa
             </ol>
           </div>
 
-          <div className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#DEDCE8] bg-white px-6 py-5">
+          <div data-reveal="up" className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#DEDCE8] bg-white px-6 py-5">
             <p className="text-sm font-medium text-[#14121C]">
               Quer sentir como essa rotina funciona na prática? Crie sua conta em menos de um minuto.
             </p>

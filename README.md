@@ -134,3 +134,9 @@ A home começa com a composição Remotion de 30 segundos fornecida em `Clarus-M
 - `VITE_ENABLE_MOTION_INTRO=false` desativa a abertura no build/dev e retorna à home direta. Por padrão está habilitada. Nenhuma outra rota recebe a introdução.
 
 A implementação não publica alterações no site de produção. Validar também em dispositivos reais, principalmente Safari/iOS, antes de publicar.
+
+## 9. Hero centralizada e entradas por rolagem
+
+A hero concentra título ampliado, descrição, ações e destaques em uma coluna central. A demonstração funcional continua na seção `#demonstracao`.
+
+As entradas por rolagem usam `useScrollReveal` e atributos `data-reveal` nas seções da home: cards alternam movimentos laterais e títulos/FAQ surgem de baixo. Cada entrada acontece uma vez, usando a rolagem nativa. Sem o observador ou com movimento reduzido, o conteúdo permanece visível; o foco por teclado revela controles imediatamente.

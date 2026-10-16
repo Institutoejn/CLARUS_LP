@@ -9,6 +9,7 @@ import { FeaturesTrustFaqSection } from './components/FeaturesTrustFaqSection';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
+import { useScrollReveal } from './hooks/useScrollReveal';
 import { ProductDemoSection } from './components/ProductDemoSection';
 import {
   OFFICIAL_PLATFORM_URL,
@@ -43,6 +44,7 @@ export default function App() {
   const [pathname, setPathname] = useState<string>(() =>
     typeof window !== 'undefined' ? normalizePathname(window.location.pathname) : '/'
   );
+  const revealRoot = useScrollReveal(pathname === '/');
   const [cookieModalOpen, setCookieModalOpen] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
 
@@ -98,7 +100,7 @@ export default function App() {
             </Suspense>}
             <div id="landing-content" tabIndex={-1} className={motionIntroEnabled ? 'landing-content' : undefined}>
               <Header onNavigate={navigate} />
-              <main id="conteudo-principal" className="flex-1">
+              <main ref={revealRoot} id="conteudo-principal" className="flex-1">
                 <HeroSection onNavigate={navigate} />
                 <ValueAndStepsSection onNavigate={navigate} />
                 <ProductDemoSection />

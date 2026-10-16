@@ -161,7 +161,7 @@ export const ProductDemoSection: React.FC = () => {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Cabeçalho da Seção */}
-        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+        <div data-reveal="up" className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7E3BED]">
               {DEMO_CONTENT.eyebrow}
@@ -190,7 +190,7 @@ export const ProductDemoSection: React.FC = () => {
         </div>
 
         {/* Container Principal do Mockup Interativo da Plataforma */}
-        <div className="mt-10 rounded-[24px] border border-[#DEDCE8] bg-[#F4F3FA] p-4 sm:p-6 lg:p-8">
+        <div data-reveal="up" className="mt-10 rounded-[24px] border border-[#DEDCE8] bg-[#F4F3FA] p-4 sm:p-6 lg:p-8">
           {/* Barra Superior do Ambiente Demonstrativo */}
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#DEDCE8] pb-5">
             <div>
