@@ -117,3 +117,17 @@ Seguindo a diretriz de não inventar dados comerciais, societários ou jurídico
 - [x] Responsividade testada para `320px`, `360px`, `390px`, `768px`, `1024px`, `1280px`, `1440px` e `1920px` sem scroll horizontal.
 - [x] Acessibilidade WCAG 2.2 AA: link de salto, apenas um `H1` por página, alvos `>= 44×44 px`, acordeão com `aria-expanded` / `aria-controls` e suporte a teclado, menu mobile com bloqueio de fundo e fechamento por `Escape`.
 - [x] SEO técnico completo: `robots.txt`, `sitemap.xml`, `manifest.webmanifest`, `og-image.png` (`1200×630`), favicons oficiais e JSON-LD (`Organization`, `WebSite`, `SoftwareApplication`, `FAQPage`).
+
+## 8. Abertura motion da LP
+
+A home começa com a composição Remotion de 30 segundos fornecida em `Clarus-Motion-Remotion.zip`, integrada como React em `src/motion/`. Não exige exportação de MP4. O player e as cenas são carregados separadamente da LP; a marca reutiliza o SVG local.
+
+- Reprodução automática, sem áudio e sem loop; pausa e link para pular sempre disponíveis na abertura.
+- O motion permanece fixo enquanto a hero e o restante do site sobem por cima, com rolagem nativa e sem bloquear mouse, toque ou teclado.
+- Ao terminar, avança até a hero somente se não houve interação, a página está visível e a pessoa continua no topo. Rolagem manual, foco por teclado e uso dos controles cancelam esse avanço.
+- Fora da abertura ou com a aba oculta, pausa a reprodução. Voltar ao topo permite retomá-la pelo controle.
+- Celular/tablet em formato retrato usam composição vertical de 720×1280 com as mesmas cenas reorganizadas; desktop usa 1920×1080.
+- `prefers-reduced-motion` inicia em um quadro estático, sem avanço automático ou efeito fixo. A reprodução pode ser iniciada pelo visitante.
+- `VITE_ENABLE_MOTION_INTRO=false` desativa a abertura no build/dev e retorna à home direta. Por padrão está habilitada. Nenhuma outra rota recebe a introdução.
+
+A implementação não publica alterações no site de produção. Validar também em dispositivos reais, principalmente Safari/iOS, antes de publicar.

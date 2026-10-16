@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, lazy, Suspense } from 'react';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { FeaturesTrustFaqSection } from './components/FeaturesTrustFaqSection';
 import { Footer } from './components/Footer';
@@ -28,6 +28,9 @@ import {
   PrivacyPolicyPage,
   TermsOfUsePage,
 } from './pages/LegalAnd404Pages';
+
+const motionIntroEnabled = import.meta.env.VITE_ENABLE_MOTION_INTRO !== 'false';
+const MotionIntro = lazy(() => import('./components/MotionIntro'));
 
 function normalizePathname(path: string): string {
   if (!path || path === '/') return '/';
@@ -90,17 +93,22 @@ export default function App() {
       case '/':
         return (
           <div className="flex min-h-screen flex-col bg-[#F4F3FA] text-[#14121C]">
-            <Header onNavigate={navigate} />
-            <main id="conteudo-principal" className="flex-1">
-              <HeroSection onNavigate={navigate} />
-              <ValueAndStepsSection onNavigate={navigate} />
-              <ProductDemoSection />
-              <FeaturesTrustFaqSection onNavigate={navigate} />
-            </main>
-            <Footer
-              onNavigate={navigate}
-              onOpenCookiePreferences={() => setCookieModalOpen(true)}
-            />
+            {motionIntroEnabled && <Suspense fallback={<div className="motion-loading" aria-hidden="true" />}>
+              <MotionIntro />
+            </Suspense>}
+            <div id="landing-content" tabIndex={-1} className={motionIntroEnabled ? 'landing-content' : undefined}>
+              <Header onNavigate={navigate} />
+              <main id="conteudo-principal" className="flex-1">
+                <HeroSection onNavigate={navigate} />
+                <ValueAndStepsSection onNavigate={navigate} />
+                <ProductDemoSection />
+                <FeaturesTrustFaqSection onNavigate={navigate} />
+              </main>
+              <Footer
+                onNavigate={navigate}
+                onOpenCookiePreferences={() => setCookieModalOpen(true)}
+              />
+            </div>
           </div>
         );
       case '/login':

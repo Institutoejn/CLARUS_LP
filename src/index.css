@@ -83,3 +83,68 @@ body {
   }
 }
 
+
+/* The sticky opening stays behind the opaque site as it scrolls into view. */
+.motion-intro, .motion-loading {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 360px;
+  flex: none;
+  background: #14121c;
+  color: white;
+}
+.motion-intro { isolation: isolate; overflow: hidden; }
+.motion-stage { position: absolute; inset: 0 0 100px; display: flex; align-items: center; }
+.motion-actions {
+  position: absolute; bottom: max(20px, env(safe-area-inset-bottom)); left: 24px; right: 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  font-size: 13px; color: #ddd6e8;
+}
+.motion-actions button, .motion-actions a {
+  display: inline-flex; min-height: 44px; align-items: center; justify-content: center;
+  gap: 10px; cursor: pointer; border-radius: 24px; padding: 8px 16px;
+  border: 1px solid #ffffff26; background: #14121c; text-decoration: none;
+}
+.motion-actions a { flex-direction: column; border: 0; background: transparent; }
+.motion-actions :focus-visible { outline: 2px solid #d7f744; outline-offset: 4px; }
+.motion-scroll-arrow { color: #d7f744; animation: motion-scroll 1.7s ease-in-out infinite; }
+.motion-fallback { margin: auto; padding: 32px; font-family: var(--font-display); font-size: clamp(28px, 6vw, 80px); }
+.landing-content {
+  position: relative; z-index: 1; background: #f4f3fa;
+  border-radius: 32px 32px 0 0; box-shadow: 0 -24px 80px #0005;
+  scroll-margin-top: 0;
+}
+.landing-content > header { border-radius: 32px 32px 0 0; }
+@keyframes motion-scroll { 0%, 100% { transform: translateY(-3px); } 50% { transform: translateY(4px); } }
+.motion-portrait .motion-scene > div:first-child { width: 800px !important; }
+.motion-portrait .motion-scene > div:nth-child(3) { inset: 54px 56px auto !important; }
+.motion-portrait .motion-scene > div:nth-child(3) > span { display: none; }
+.motion-portrait .motion-scene > div:last-child { display: none !important; }
+.motion-portrait .motion-narrative { left: 56px !important; right: 56px !important; top: 200px !important; width: auto !important; }
+.motion-portrait .motion-narrative div[style*="font-size: 126"],
+.motion-portrait .motion-narrative div[style*="font-size: 112"] { font-size: 78px !important; letter-spacing: -4px !important; }
+.motion-portrait .motion-narrative p { font-size: 28px !important; }
+.motion-portrait .motion-card { left: 56px !important; top: 650px !important; width: 608px !important; rotate: 0deg !important; }
+.motion-portrait .motion-orbit { left: 195px !important; right: auto !important; top: 710px !important; }
+.motion-portrait .motion-stage { bottom: 125px; }
+@media (max-width: 600px) {
+  .motion-actions { left: 12px; right: 12px; gap: 8px; flex-wrap: wrap; font-size: 11px; }
+  .motion-actions a { order: -1; width: 100%; padding: 0; gap: 3px; }
+  .motion-actions button { padding: 6px 12px; }
+  .landing-content, .landing-content > header { border-radius: 24px 24px 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-intro, .motion-loading { position: relative; }
+  .motion-scroll-arrow { animation: none; }
+}
+/* Keep all three category rows inside the portrait composition. */
+.motion-portrait .motion-overview-card { top: 630px !important; }
+.motion-portrait .motion-overview-card > div { padding: 26px !important; }
+.motion-portrait .motion-overview-card > div > div:first-child { font-size: 24px !important; margin-bottom: 16px !important; }
+.motion-portrait .motion-overview-card > div > div:nth-child(2) { padding: 20px !important; }
+.motion-portrait .motion-overview-card > div > div:nth-child(2) > div:last-child { font-size: 48px !important; margin-top: 6px !important; }
+.motion-portrait .motion-overview-card > div > div:nth-child(3) { margin: 16px 0 !important; }
+.motion-portrait .motion-overview-card > div > div:nth-child(4) { padding-top: 14px !important; font-size: 21px !important; }
+.motion-portrait .motion-overview-card > div > div:nth-child(n+5) { margin-top: 12px !important; }
+.motion-portrait .motion-overview-card > div > div:nth-child(n+5) > div:first-child { font-size: 19px !important; margin-bottom: 6px !important; }
